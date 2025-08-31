@@ -1,35 +1,26 @@
 import { Stack, router } from "expo-router";
-import { useFonts } from "expo-font";
 import { useEffect, useState } from "react";
 import { SplashScreen } from "expo-router";
-import LottieView from "lottie-react-native";
-import { View, Text } from "react-native";
+import { useAppFonts } from "../src/hooks/useAppFonts";
+import SplashScreenAnimation from "../src/components/SplashScreenAnimation";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [fontsLoaded, error] = useFonts({
-    'regular': require('../assets/fonts/Roboto-Regular.ttf'),
-  });
+  const { fontsLoaded, error } = useAppFonts();
   const [animationFinished, setAnimationFinished] = useState(false);
 
   useEffect(() => {
     if (error) throw error;
 
     if (fontsLoaded) {
-      // @ts-ignore
-      Text.defaultProps = Text.defaultProps || {};
-      // @ts-ignore
-      Text.defaultProps.style = { fontFamily: 'regular' };
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded, error]);
 
   useEffect(() => {
     if (animationFinished) {
-      setTimeout(() => {
-        router.replace("/(auth)");
-      }, 2000);
+      router.replace("/(auth)");
     }
   }, [animationFinished]);
 
@@ -40,15 +31,9 @@ export default function RootLayout() {
   return (
     <>
       {!animationFinished ? (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <LottieView
-            source={require("../assets/loading-animation.json")}
-            autoPlay
-            loop={false}
-            onAnimationFinish={() => setAnimationFinished(true)}
-            style={{ width: 200, height: 200 }}
-          />
-        </View>
+        <SplashScreenAnimation
+          onAnimationFinish={() => setAnimationFinished(true)}
+        />
       ) : (
         <Stack>
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
