@@ -23,7 +23,7 @@ export default function SplashScreenAnimation({ onAnimationFinish }: SplashScree
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <LottieView
         ref={animationRef}
-        source={require('../../assets/loading-animation.json')}
+        source={require('@assets/loading-animation.json')}
         autoPlay
         loop={false}
         onAnimationFinish={handleAnimationFinish}

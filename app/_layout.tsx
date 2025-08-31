@@ -2,7 +2,7 @@ import { Stack, router } from "expo-router";
 import { useEffect, useState } from "react";
 import { SplashScreen } from "expo-router";
 import { useAppFonts } from "../src/hooks/useAppFonts";
-import SplashScreenAnimation from "../src/components/SplashScreenAnimation";
+import SplashScreenAnimation from "../src/features/splash/components/SplashScreenAnimation";
 
 SplashScreen.preventAutoHideAsync();
 
